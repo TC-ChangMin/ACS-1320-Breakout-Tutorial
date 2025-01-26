@@ -14,6 +14,8 @@ let paddleX = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
 
+let interval = 0;
+
 const brickRowCount = 5;
 const brickColumnCount = 3;
 const brickWidth = 75;
@@ -23,8 +25,6 @@ const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 
 let score = 0;
-let lives = 3;
-
 let bricks = [];
 
 for (let c = 0; c < brickColumnCount; c++) {
@@ -55,7 +55,7 @@ function keyUpHandler(e) {
 }
 
 function mouseMoveHandler(e) {
-  let relativeX = e.clientX - canvas.offsetLeft;
+  const relativeX = e.clientX - canvas.offsetLeft;
   if (relativeX > 0 && relativeX < canvas.width) {
     paddleX = relativeX - paddleWidth / 2;
   }
@@ -77,6 +77,7 @@ function collisionDetection() {
           if (score == brickRowCount * brickColumnCount) {
             alert("YOU WIN, CONGRATS!");
             document.location.reload();
+            clearInterval(interval); // Needed for Chrome to end game
           }
         }
       }
@@ -120,11 +121,6 @@ function drawScore() {
   ctx.fillStyle = "#0095DD";
   ctx.fillText("Score: " + score, 8, 20);
 }
-function drawLives() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095DD";
-  ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
-}
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -132,7 +128,6 @@ function draw() {
   drawBall();
   drawPaddle();
   drawScore();
-  drawLives();
   collisionDetection();
 
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
@@ -144,17 +139,9 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
     } else {
-      lives--;
-      if (!lives) {
-        alert("GAME OVER");
-        document.location.reload();
-      } else {
-        x = canvas.width / 2;
-        y = canvas.height - 30;
-        dx = 3;
-        dy = -3;
-        paddleX = (canvas.width - paddleWidth) / 2;
-      }
+      alert("GAME OVER");
+      document.location.reload();
+      clearInterval(interval); // Needed for Chrome to end game
     }
   }
 
@@ -166,10 +153,12 @@ function draw() {
 
   x += dx;
   y += dy;
-  requestAnimationFrame(draw);
+}
+
+function startGame() {
+  interval = setInterval(draw, 10);
 }
 
 document.getElementById("runButton").addEventListener("click", function () {
-  draw();
-  this.disabled = true;
+  startGame();
 });
