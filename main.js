@@ -1,5 +1,10 @@
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
+/* eslint-disable no-use-before-define */
+/* eslint-disable prefer-const */
+/* eslint-disable no-alert */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-undef */
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
 const ballRadius = 10;
 
 let x = canvas.width / 2;
@@ -27,29 +32,29 @@ const brickOffsetLeft = 30;
 let score = 0;
 let bricks = [];
 
-for (let c = 0; c < brickColumnCount; c++) {
+for (let c = 0; c < brickColumnCount; c += 1) {
   bricks[c] = [];
-  for (let r = 0; r < brickRowCount; r++) {
+  for (let r = 0; r < brickRowCount; r += 1) {
     bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
 }
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false);
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+document.addEventListener('mousemove', mouseMoveHandler, false);
 
 function keyDownHandler(e) {
-  if (e.key == "Right" || e.key == "ArrowRight") {
+  if (e.key == 'Right' || e.key == 'ArrowRight') {
     rightPressed = true;
-  } else if (e.key == "Left" || e.key == "ArrowLeft") {
+  } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
     leftPressed = true;
   }
 }
 
 function keyUpHandler(e) {
-  if (e.key == "Right" || e.key == "ArrowRight") {
+  if (e.key === 'Right' || e.key === 'ArrowRight') {
     rightPressed = false;
-  } else if (e.key == "Left" || e.key == "ArrowLeft") {
+  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
     leftPressed = false;
   }
 }
@@ -61,21 +66,21 @@ function mouseMoveHandler(e) {
   }
 }
 function collisionDetection() {
-  for (let c = 0; c < brickColumnCount; c++) {
-    for (let r = 0; r < brickRowCount; r++) {
+  for (let c = 0; c < brickColumnCount; c += 1) {
+    for (let r = 0; r < brickRowCount; r += 1) {
       let b = bricks[c][r];
       if (b.status == 1) {
         if (
-          x > b.x &&
-          x < b.x + brickWidth &&
-          y > b.y &&
-          y < b.y + brickHeight
+          x > b.x
+          && x < b.x + brickWidth
+          && y > b.y
+          && y < b.y + brickHeight
         ) {
           dy = -dy;
           b.status = 0;
-          score++;
+          score += 1;
           if (score == brickRowCount * brickColumnCount) {
-            alert("YOU WIN, CONGRATS!");
+            alert('YOU WIN, CONGRATS!');
             document.location.reload();
             clearInterval(interval); // Needed for Chrome to end game
           }
@@ -88,20 +93,20 @@ function collisionDetection() {
 function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = '#0095DD';
   ctx.fill();
   ctx.closePath();
 }
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = "#0095DD";
+  ctx.fillStyle = '#0095DD';
   ctx.fill();
   ctx.closePath();
 }
 function drawBricks() {
-  for (let c = 0; c < brickColumnCount; c++) {
-    for (let r = 0; r < brickRowCount; r++) {
+  for (let c = 0; c < brickColumnCount; c += 1) {
+    for (let r = 0; r < brickRowCount; r += 1) {
       if (bricks[c][r].status == 1) {
         const brickX = r * (brickWidth + brickPadding) + brickOffsetLeft;
         const brickY = c * (brickHeight + brickPadding) + brickOffsetTop;
@@ -109,7 +114,7 @@ function drawBricks() {
         bricks[c][r].y = brickY;
         ctx.beginPath();
         ctx.rect(brickX, brickY, brickWidth, brickHeight);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = '#0095DD';
         ctx.fill();
         ctx.closePath();
       }
@@ -117,9 +122,10 @@ function drawBricks() {
   }
 }
 function drawScore() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#0095DD";
-  ctx.fillText("Score: " + score, 8, 20);
+  ctx.font = '16px Arial';
+  ctx.fillStyle = '#0095DD';
+  // eslint-disable-next-line prefer-template
+  ctx.fillText('Score: ' + score, 8, 20);
 }
 
 function draw() {
@@ -139,7 +145,7 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
     } else {
-      alert("GAME OVER");
+      alert('GAME OVER');
       document.location.reload();
       clearInterval(interval); // Needed for Chrome to end game
     }
@@ -159,6 +165,6 @@ function startGame() {
   interval = setInterval(draw, 10);
 }
 
-document.getElementById("runButton").addEventListener("click", function () {
+document.getElementById('runButton').addEventListener('click', () => {
   startGame();
 });
