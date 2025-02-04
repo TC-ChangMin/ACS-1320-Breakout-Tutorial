@@ -1,15 +1,10 @@
-// try export .... (it is more modern)
-const CONSTANTS = {
-  BALL_RADIUS: 10,
-  PADDLE_HEIGHT: 10,
-  PADDLE_WIDTH: 75,
-  BRICK_ROW_COUNT: 5,
-  BRICK_COLUMN_COUNT: 3,
-  BRICK_WIDTH: 75,
-  BRICK_HEIGHT: 20,
-  BRICK_PADDING: 10,
-  BRICK_OFFSET_TOP: 30,
-  BRICK_OFFSET_LEFT: 30,
-};
-
-export default CONSTANTS;
+export const BALL_RADIUS = 10;
+export const PADDLE_HEIGHT = 10;
+export const PADDLE_WIDTH = 75;
+export const BRICK_ROW_COUNT = 5;
+export const BRICK_COLUMN_COUNT = 3;
+export const BRICK_WIDTH = 75;
+export const BRICK_HEIGHT = 20;
+export const BRICK_PADDING = 10;
+export const BRICK_OFFSET_TOP = 30;
+export const BRICK_OFFSET_LEFT = 30;

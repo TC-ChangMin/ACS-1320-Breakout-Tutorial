@@ -1,5 +1,9 @@
-class Paddle {
+/* eslint-disable import/extensions */
+import Brick from './Brick.js';
+
+export default class Paddle extends Brick {
   constructor(x, y, width, height, color) {
+    super(x, y, width, height, color);
     this.x = x;
     this.y = y;
     this.width = width;
@@ -15,5 +19,3 @@ class Paddle {
     ctx.closePath();
   }
 }
-
-export default Paddle;

@@ -1,20 +1,16 @@
-// eslint-disable-next-line import/extensions
-import CONSTANTS from './constants.js';
+/* eslint-disable import/extensions */
+import Sprite from './Sprite.js';
+import { BRICK_WIDTH, BRICK_HEIGHT } from './constants.js';
 
-class Brick {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+export default class Brick extends Sprite {
+  constructor(x, y, color = 'blue') {
+    super(x, y, BRICK_WIDTH, BRICK_HEIGHT, color);
     this.status = 1;
-    this.color = '#0095DD';
   }
 
   render(ctx) {
-    ctx.beginPath();
-    ctx.rect(this.x, this.y, CONSTANTS.BRICK_WIDTH, CONSTANTS.BRICK_HEIGHT);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    ctx.closePath();
+    if (this.status === 1) {
+      super.render(ctx);
+    }
   }
 }
-export default Brick;
