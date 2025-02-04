@@ -20,6 +20,7 @@ import {
 import Brick from './Brick.js';
 import Ball from './Ball.js';
 import Paddle from './Paddle.js';
+import Label from './Label.js';
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
@@ -32,8 +33,9 @@ let interval = 0;
 let score = 0;
 let bricks = [];
 
+// making instances
 const ball = new Ball(canvas.width / 2, canvas.height - 30);
-
+const scoreLabel = new Label(8, 20, '16px Arial', 'blue', 'left');
 const paddle = new Paddle(
   (canvas.width - PADDLE_WIDTH) / 2,
   canvas.height - PADDLE_HEIGHT,
@@ -118,9 +120,8 @@ function drawBricks() {
 }
 
 function drawScore() {
-  ctx.font = '16px Arial';
-  ctx.fillStyle = '#0095DD';
-  ctx.fillText('Score: ' + score, 8, 20);
+  scoreLabel.text = 'Score: ' + score;
+  scoreLabel.render(ctx);
 }
 
 function draw() {
