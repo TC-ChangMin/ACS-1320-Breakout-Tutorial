@@ -1,3 +1,4 @@
+// try export .... (it is more modern)
 const CONSTANTS = {
   BALL_RADIUS: 10,
   PADDLE_HEIGHT: 10,

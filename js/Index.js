@@ -6,8 +6,8 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 import CONSTANTS from './constants.js';
-import Brick from './brick.js';
-import Ball from './ball.js';
+import Brick from './Brick.js';
+import Ball from './Ball.js';
 
 const {
   BALL_RADIUS, PADDLE_HEIGHT, PADDLE_WIDTH,
@@ -28,7 +28,7 @@ let interval = 0;
 let score = 0;
 let bricks = [];
 
-const ball = new Ball(canvas.width / 2, canvas.height - 30); // Ball object with starting position
+const ball = new Ball(canvas.width / 2, canvas.height - 30);
 
 for (let c = 0; c < BRICK_COLUMN_COUNT; c += 1) {
   bricks[c] = [];
