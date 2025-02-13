@@ -16,32 +16,32 @@ import {
   BRICK_PADDING,
   BRICK_OFFSET_TOP,
   BRICK_OFFSET_LEFT,
-} from './constants.js';
-import Brick from './Brick.js';
-import Ball from './Ball.js';
-import Paddle from './Paddle.js';
-import Label from './Label.js';
+} from './constants';
+import Brick from './Brick';
+import Ball from './Ball';
+import Paddle from './Paddle';
+import Label from './Label';
 
-const canvas = document.getElementById('myCanvas');
+const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
 let rightPressed = false;
 let leftPressed = false;
 
-let interval = 0;
+let interval: any = 0;
 
 let score = 0;
-let bricks = [];
+let bricks:Brick[][] = [];
 
 // making instances
 const ball = new Ball(canvas.width / 2, canvas.height - 30);
-const scoreLabel = new Label(8, 20, '16px Arial', 'blue', 'left');
+const scoreLabel = new Label(8, 20, '16px Arial', 'blue');
 const paddle = new Paddle(
   (canvas.width - PADDLE_WIDTH) / 2,
   canvas.height - PADDLE_HEIGHT,
+  '#0095DD',
   PADDLE_WIDTH,
   PADDLE_HEIGHT,
-  '#0095DD',
 );
 
 for (let c = 0; c < BRICK_COLUMN_COUNT; c += 1) {
@@ -57,7 +57,7 @@ document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 document.addEventListener('mousemove', mouseMoveHandler, false);
 
-function keyDownHandler(e) {
+function keyDownHandler(e: KeyboardEvent) {
   if (e.key == 'Right' || e.key == 'ArrowRight') {
     rightPressed = true;
   } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
@@ -65,7 +65,7 @@ function keyDownHandler(e) {
   }
 }
 
-function keyUpHandler(e) {
+function keyUpHandler(e: KeyboardEvent) {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
     rightPressed = false;
   } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
@@ -73,7 +73,7 @@ function keyUpHandler(e) {
   }
 }
 
-function mouseMoveHandler(e) {
+function mouseMoveHandler(e: MouseEvent) {
   const relativeX = e.clientX - canvas.offsetLeft;
   if (relativeX > 0 && relativeX < canvas.width) {
     paddle.x = relativeX - PADDLE_WIDTH / 2;
